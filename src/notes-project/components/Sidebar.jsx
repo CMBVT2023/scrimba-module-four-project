@@ -1,25 +1,26 @@
 import React from "react";
 
+import styles from '../NotesStyles.module.css'
+
 export function Sidebar(props) {
     const noteElements = props.notes.map((note, index) => (
         <div key={note.id}>
             <div
-                
-                className={`title ${
-                    note.id === props.currentNote.id ? "selected-note" : ""
+                className={`${styles.title} ${
+                    note.id === props.currentNote.id ? styles.selectedNote : ""
                 }`}
                 onClick={() => props.setCurrentNoteId(note.id)}
             >
-                <h4 className="text-snippet">Note {index + 1}</h4>
+                <h4 className={styles.textSnippet}>Note {index + 1}</h4>
             </div>
         </div>
     ))
 
     return (
-        <section className="pane sidebar">
-            <div className="sidebar--header">
+        <section className={`${styles.pane} ${styles.sidebar}`}>
+            <div className={styles.sidebarHeader}>
                 <h3>Notes</h3>
-                <button className="new-note" onClick={props.newNote}>+</button>
+                <button className={styles.newNote} onClick={props.newNote}>+</button>
             </div>
             {noteElements}
         </section>

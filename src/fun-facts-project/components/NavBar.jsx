@@ -1,27 +1,28 @@
 import React from "react";
+import styles from "../FunFactsStyles.module.css"
 
 export function NavBar(props) {
     return (
         <nav 
-            className={props.darkMode ? "dark": ""}
+            className={`${styles.navBar} ${props.darkMode ? styles.dark : ""}`}
         >
             <img 
-                className="nav--logo_icon"
+                className={styles.navLogoIcon}
                 src={new URL("../assets/react-icon-small.png", import.meta.url)}
             />
-            <h3 className="nav--logo_text">ReactFacts</h3>
+            <h3 className={styles.navLogoText}>ReactFacts</h3>
             
             <div 
-                className="toggler" 
+                className={styles.toggler} 
             >
-                <p className="toggler--light">Light</p>
+                <p className={styles.togglerLight}>Light</p>
                 <div 
-                    className="toggler--slider"
+                    className={styles.togglerSlider}
                     onClick={props.toggleDarkMode}
                 >
-                    <div className="toggler--slider--circle"></div>
+                    <div className={styles.togglerSliderCircle}></div>
                 </div>
-                <p className="toggler--dark">Dark</p>
+                <p className={styles.togglerDark}>Dark</p>
             </div>
         </nav>
     )

@@ -1,15 +1,3 @@
-* {
-    box-sizing: border-box;
-}
-
-h1, h2, h3, h4, h5, h6, p {
-    margin: 0;
-}
-
-body {
-    margin: 0;
-}
-
 .container {
     display: flex;
     flex-direction: column;
@@ -18,7 +6,7 @@ body {
 
 /* NAV styles */
 
-nav {
+.navBar {
     display: flex;
     align-items: center;
     background-color: #ffffff;
@@ -28,16 +16,16 @@ nav {
     z-index: 1;
 }
 
-nav.dark {
+.navBar.dark {
     background-color: #21222A;
 }
 
-.nav--logo_icon {
+.navLogoIcon {
     width: 30px;
     margin-right: 10px;
 }
 
-.nav--logo_text {
+.navLogoText{
     color: #61DAFB;
     margin-right: auto;
 }
@@ -56,7 +44,7 @@ nav.dark {
     font-weight: 600;
 }
 
-.toggler--slider {
+.togglerSlider {
     width: 25px;
     height: 13px;
     background-color: #2B283A;
@@ -70,44 +58,44 @@ nav.dark {
     box-sizing: content-box;
 }
 
-nav.dark .toggler--slider {
+.navBar.dark .togglerSlider {
     border-color: white;
     background-color: #F5F5F5;
 }
 
-.toggler--slider--circle {
+.togglerSliderCircle {
     height: 13px;
     width: 13px;
     background-color: white;
     border-radius: 50%;
 }
 
-nav.dark .toggler--slider--circle {
+.navBar.dark .togglerSliderCircle {
     background-color: black;
 }
 
-.toggler--light {
+.togglerLight {
     color: #2B283A;
 }
 
-nav.dark .toggler--light {
+.navBar.dark .togglerLight {
     color: #918E9B;
 }
 
-.toggler--dark {
+.togglerDark {
     color: #D5D4D8;
 }
 
-nav.dark .toggler-dark {
+.navBar.dark .togglerDark {
     color: #FFFFFF;
 }
 
-nav.dark .toggler--slider {
+.navBar.dark .togglerSlider {
     justify-content: flex-end;
 }
 
 /* MAIN styles */
-main {
+.mainBody {
     padding: 57px 27px;
     background-image: url("./assets/react-icon-large.png"); 
     background-repeat: no-repeat;
@@ -117,29 +105,29 @@ main {
     color: #2B283A;
 }
 
-main.dark {
+.mainBody.dark {
     background-image: url("./assets/react-icon-dark.png"); 
     background-color: #282D35;
     color: white;    
 }
 
-.main--title {
+.mainTitle {
     margin: 0;
     font-size: 39px;
     letter-spacing: -0.05em;
 }
 
-.main--facts {
+.mainFacts {
     margin-top: 46px;
     max-width: 400px;
 }
 
-.main--facts > li {
+.mainFacts > li {
     line-height: 19px;
     padding-block: 10px;
 }
 
-.main--facts > li::marker {
+.mainFacts > li::marker {
     font-size: 1.4rem;
     color: #61DAFB;
 }

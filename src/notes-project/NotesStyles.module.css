@@ -1,17 +1,3 @@
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Karla', sans-serif;
-}
-
-button:focus {
-    outline: none;
-}
-
 .ql-editor p,
 .ql-editor.ql-blank::before {
     font-size: 1.3em;
@@ -28,21 +14,21 @@ button:focus {
     height: 100vh;
 }
 
-.sidebar--note {
+.sidebarNote {
     /* display: flex; */
 }
 
-.sidebar--header {
+.sidebarHeader {
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-.sidebar--header > h3 {
+.sidebarHeader > h3 {
     font-size: 1.75rem;
 }
 
-.new-note {
+.newNote {
     cursor: pointer;
     background-color: #4A4E74;
     border: none;
@@ -52,7 +38,7 @@ button:focus {
     width: 30px;
 }
 
-.first-note {
+.firstNote {
     cursor: pointer;
     background-color: #4A4E74;
     border: none;
@@ -75,14 +61,14 @@ button:focus {
     align-items: center;
 }
 
-.title--delete {
+.titleDelete {
     display: none;
     cursor: pointer;
     background-color: transparent;
     border: none;
 }
 
-.title:hover .title--delete {
+.title:hover .titleDelete {
     display: block;
 }
 
@@ -90,7 +76,7 @@ button:focus {
     border-bottom: 1px solid lightgray;
 }
 
-.text-snippet {
+.textSnippet {
     padding-inline: 5px;
     font-size: 0.8rem;
     font-weight: 400;
@@ -101,35 +87,21 @@ button:focus {
     text-overflow: ellipsis;
 }
 
-.selected-note {
+.selectedNote {
     background-color: #4A4E74;
 }
 
-.selected-note .text-snippet {
+.selectedNote .textSnippet {
     color: white;
     font-weight: 700;
 }
 
-.gutter {
-    background-color: #eee;
-
-    background-repeat: no-repeat;
-    background-position: 50%;
-}
-
-.gutter.gutter-horizontal {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
-}
-
-.gutter.gutter-horizontal:hover {
-    cursor: col-resize;
-}
 
 .split {
     display: flex;
 }
 
-.no-notes {
+.noNotes {
     width: 100%;
     height: 100vh;
     display: flex;

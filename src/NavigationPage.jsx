@@ -4,6 +4,7 @@ import { ReturnButton } from './ReturnButton'
 import { Home } from './Home'
 import { FunFactsPage } from './fun-facts-project/FunFactsPage'
 import { NotesPage } from './notes-project/NotesPage'
+import './styles.css'
 
 export function NavigationPage() {
 

@@ -5,7 +5,7 @@ import { Sidebar } from "./components/Sidebar";
 import Split from "react-split"
 import {nanoid} from "nanoid"
 
-import './NotesStyles.css'
+import styles from './NotesStyles.module.css'
 
 export function NotesPage() {
     const [notes, setNotes] = React.useState([])
@@ -44,7 +44,7 @@ export function NotesPage() {
             <Split 
                 sizes={[30, 70]} 
                 direction="horizontal" 
-                className="split"
+                className={styles.split}
             >
                 <Sidebar
                     notes={notes}
@@ -62,10 +62,10 @@ export function NotesPage() {
                 }
             </Split>
             :
-            <div className="no-notes">
+            <div className={styles.noNotes}>
                 <h1>You have no notes</h1>
                 <button 
-                    className="first-note" 
+                    className={styles.firstNote} 
                     onClick={createNewNote}
                 >
                     Create one now
