@@ -10,7 +10,9 @@ import {nanoid} from "nanoid"
 import styles from './NotesStyles.module.css'
 
 export function NotesPage() {
-    const [notes, setNotes] = React.useState(JSON.parse(localStorage.getItem('notes')) || [])
+    const [notes, setNotes] = React.useState(() => 
+        JSON.parse(localStorage.getItem('notes')) || []
+    )
     const [currentNoteId, setCurrentNoteId] = React.useState(
         (notes[0] && notes[0].id) || ""
     )
