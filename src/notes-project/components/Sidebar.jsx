@@ -4,10 +4,7 @@ import styles from '../NotesStyles.module.css'
 
 export function Sidebar(props) {
     const noteElements = props.notes.map((note, index) => {
-        let noteString = JSON.stringify(note.body)
-        noteString = noteString.substring(1, noteString.length - 1)
-        
-        let noteTitle = noteString.split('\\n')[0]
+        let noteTitle = note.body.split('\n')[0]
 
         return (
             <div key={note.id}>
