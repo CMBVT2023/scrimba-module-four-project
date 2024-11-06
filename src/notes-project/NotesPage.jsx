@@ -34,15 +34,24 @@ export function NotesPage() {
     
     function updateNote(text) {
         setNotes(oldNotes => {
-            let noteIndex;
-            let newArr = oldNotes.map((oldNote, index) => {
-                if (oldNote.id === currentNoteId) noteIndex = index;
-                return oldNote.id === currentNoteId
-                    ? { ...oldNote, body: text }
-                    : oldNote
-            })
-            newArr.unshift(newArr.splice(noteIndex, 1)[0]);
-            return newArr;
+            let oldIndex;
+            let newNotes = [...oldNotes].filter((oldNote, index) => {
+                if (oldNote.id != currentNoteId) return true;
+                oldIndex = index;
+                return false;
+            });
+            return [{...oldNotes[oldIndex], body: text}, ...newNotes]
+
+            
+            // let noteIndex;
+            // let newArr = oldNotes.map((oldNote, index) => {
+            //     if (oldNote.id === currentNoteId) noteIndex = index;
+            //     return oldNote.id === currentNoteId
+            //         ? { ...oldNote, body: text }
+            //         : oldNote
+            // })
+            // newArr.unshift(newArr.splice(noteIndex, 1)[0]);
+            // return newArr;
         })
     }
     
