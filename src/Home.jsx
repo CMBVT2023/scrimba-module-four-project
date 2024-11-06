@@ -9,6 +9,9 @@ export function Home() {
                 <li>
                     <Link to={'/funFactsPage'}>Fun Facts About React</Link>
                 </li>
+                <li>
+                    <Link to={'/notesPage'}>Notes App</Link>
+                </li>
             </ul>
         </div>
     )
