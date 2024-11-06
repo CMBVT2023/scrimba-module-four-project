@@ -33,11 +33,18 @@ export function NotesPage() {
     }
     
     function updateNote(text) {
-        setNotes(oldNotes => oldNotes.map(oldNote => {
-            return oldNote.id === currentNoteId
-                ? { ...oldNote, body: text }
-                : oldNote
-        }))
+        setNotes(oldNotes => {
+            let noteIndex;
+            let newArr = oldNotes.map((oldNote, index) => {
+                if (oldNote.id === currentNoteId) noteIndex = index;
+                return oldNote.id === currentNoteId
+                    ? { ...oldNote, body: text }
+                    : oldNote
+            })
+            let updatedNote = newArr.splice(noteIndex, 1)[0];
+            newArr.unshift(updatedNote)
+            return newArr;
+        })
     }
     
     function findCurrentNote() {
