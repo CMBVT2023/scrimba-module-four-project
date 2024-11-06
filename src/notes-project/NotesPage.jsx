@@ -41,8 +41,7 @@ export function NotesPage() {
                     ? { ...oldNote, body: text }
                     : oldNote
             })
-            let updatedNote = newArr.splice(noteIndex, 1)[0];
-            newArr.unshift(updatedNote)
+            newArr.unshift(newArr.splice(noteIndex, 1)[0]);
             return newArr;
         })
     }
