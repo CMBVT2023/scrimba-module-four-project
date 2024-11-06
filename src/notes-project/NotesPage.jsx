@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Editor } from "./components/Editor";
 import { Sidebar } from "./components/Sidebar";
+
+import { data } from "./data";
 
 import Split from "react-split"
 import {nanoid} from "nanoid"
@@ -8,11 +10,17 @@ import {nanoid} from "nanoid"
 import styles from './NotesStyles.module.css'
 
 export function NotesPage() {
-    const [notes, setNotes] = React.useState([])
+    const [notes, setNotes] = React.useState(JSON.parse(localStorage.getItem('notes')) || [])
     const [currentNoteId, setCurrentNoteId] = React.useState(
         (notes[0] && notes[0].id) || ""
     )
-    
+
+    useEffect(() => {
+        localStorage.setItem('notes', 
+            JSON.stringify(notes)
+        )
+    }, [notes]);
+
     function createNewNote() {
         const newNote = {
             id: nanoid(),
