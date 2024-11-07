@@ -80,6 +80,15 @@ export function NotesPage() {
                 : oldNote
         })) */
     }
+
+    function deleteNote(event, noteId) {
+        event.stopPropagation();
+
+        setNotes(prevNotes => {
+            let newNotes = [...prevNotes];
+            return newNotes.filter(note => note.id !== noteId) 
+        })
+    }
     
     function findCurrentNote() {
         return notes.find(note => {
@@ -102,6 +111,7 @@ export function NotesPage() {
                     currentNote={findCurrentNote()}
                     setCurrentNoteId={setCurrentNoteId}
                     newNote={createNewNote}
+                    deleteNote={deleteNote}
                 />
                 {
                     currentNoteId && 
