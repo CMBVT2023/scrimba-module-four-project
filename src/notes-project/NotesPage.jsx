@@ -84,10 +84,7 @@ export function NotesPage() {
     function deleteNote(event, noteId) {
         event.stopPropagation();
 
-        setNotes(prevNotes => {
-            let newNotes = [...prevNotes];
-            return newNotes.filter(note => note.id !== noteId) 
-        })
+        setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
     }
     
     function findCurrentNote() {
