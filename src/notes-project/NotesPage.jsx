@@ -3,7 +3,7 @@ import { Editor } from "./components/Editor";
 import { Sidebar } from "./components/Sidebar";
 
 import Split from "react-split"
-import {nanoid} from "nanoid"
+// import {nanoid} from "nanoid"
 import { onSnapshot } from "firebase/firestore";
 
 import { notesCollection } from "./firebase";
@@ -11,9 +11,7 @@ import { notesCollection } from "./firebase";
 import styles from './NotesStyles.module.css'
 
 export function NotesPage() {
-    const [notes, setNotes] = React.useState(() => 
-        JSON.parse(localStorage.getItem('notes')) || []
-    )
+    const [notes, setNotes] = React.useState([])
     const [currentNoteId, setCurrentNoteId] = React.useState(
         (notes[0]?.id) || ""
     )
@@ -24,7 +22,12 @@ export function NotesPage() {
         // This creates a websocket listener within our app, so we need to provide a way for the component to close this if the component unmounts.
         const unsubscribe = onSnapshot(notesCollection, (snapshot) => {
             //TODO: Sync the local notes array with the snapshot data.
-            console.log('Change')
+            const notesArray = snapshot.docs.map(doc => ({
+                ...doc.data(),
+                id: doc.id
+            }))
+
+            setNotes(notesArray)
         })
 
         return () => {
