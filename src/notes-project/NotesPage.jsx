@@ -4,6 +4,9 @@ import { Sidebar } from "./components/Sidebar";
 
 import Split from "react-split"
 import {nanoid} from "nanoid"
+import { onSnapshot } from "firebase/firestore";
+
+import { notesCollection } from "./firebase";
 
 import styles from './NotesStyles.module.css'
 
@@ -18,10 +21,19 @@ export function NotesPage() {
     const currentNote = notes.find(note => note.id === currentNoteId) || notes[0]
 
     useEffect(() => {
-        localStorage.setItem('notes', 
-            JSON.stringify(notes)
-        )
-    }, [notes]);
+        // This creates a websocket listener within our app, so we need to provide a way for the component to close this if the component unmounts.
+        const unsubscribe = onSnapshot(notesCollection, (snapshot) => {
+            //TODO: Sync the local notes array with the snapshot data.
+            console.log('Change')
+        })
+
+        return () => {
+            // This will clean up the websocket connection when the component unmounts
+            unsubscribe()
+        }
+        //* Since unsubscribe is a function, it can also be written like so.
+        // return unsubscribe
+    }, []);
 
     function createNewNote() {
         const newNote = {
