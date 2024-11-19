@@ -3,8 +3,7 @@ import { Editor } from "./components/Editor";
 import { Sidebar } from "./components/Sidebar";
 
 import Split from "react-split"
-// import {nanoid} from "nanoid"
-import { onSnapshot } from "firebase/firestore";
+import { onSnapshot, addDoc } from "firebase/firestore";
 
 import { notesCollection } from "./firebase";
 
@@ -38,13 +37,16 @@ export function NotesPage() {
         // return unsubscribe
     }, []);
 
-    function createNewNote() {
+    async function createNewNote() {
         const newNote = {
-            id: nanoid(),
             body: "# Type your markdown note's title here"
         }
-        setNotes(prevNotes => [newNote, ...prevNotes])
-        setCurrentNoteId(newNote.id)
+
+        // This will add the new note to the notesCollection in the firestore database, and this requires passing in the variable retaining the collection and the new object you wish to add.
+        //* Because we are using snapshot, once this note is added, the snapshot feature will update our current state value for the notes array.
+        //* Also, the firebase database creates their own unique ids for each entry so appending a id property is no longer required.
+        const newNoteRef = await addDoc(notesCollection, newNote)
+        setCurrentNoteId(newNoteRef.id)
     }
     
     function updateNote(text) {
