@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useId } from "react";
 import { Die } from "./Die";
 
 export function GameContainer({styles}) {
     const [ dice, setDice ] = useState(allNewDice())
+    let id = useId()
 
     /**
      * Challenge: Update the array of numbers in state to be
@@ -19,10 +20,11 @@ export function GameContainer({styles}) {
 
         const newDice = [];
         for (let i = 0; i < 10; i++) {
-            newDice[i] = {
+            newDice.push({
                 value: Math.ceil(Math.random() * 6),
-                isHeld: false
-            }
+                isHeld: false,
+                id: `die-${i + 1}`
+            })
         }
 
         return newDice
@@ -31,7 +33,7 @@ export function GameContainer({styles}) {
     return (
         <main className={`${styles.displayFlexCenter} ${styles.gameElement}`}>
             <div className={styles.diceContainer}>
-                {dice.map((die, index) => <Die key={`die-${index + 1}`} value={die.value} styles={styles} />)}
+                {dice.map((die) => <Die key={die.id} value={die.value} styles={styles} />)}
             </div>
             <button onClick={() => setDice(allNewDice())} className={styles.reRollButton}>Roll</button>
         </main>
