@@ -2,17 +2,15 @@ import { useState } from "react";
 import { Die } from "./Die";
 
 export function GameContainer({styles}) {
-    const [ diceArray, setDiceArray ] = useState(allNewDice())
+    const [ dice, setDice ] = useState(allNewDice())
+
     /**
-     * Challenge:
+     * Challenge: Create a `Roll Dice` button that will re-roll
+     * all 10 dice
      * 
-     * Create state to hold our array of numbers. (Initialize
-     * the state by calling our `allNewDice` function so it 
-     * loads all new dice as soon as the app loads)
-     * 
-     * Map over the state numbers array to generate our array
-     * of Die elements and render those in place of our
-     * manually-written 10 Die elements.
+     * Clicking the button should generate a new array of numbers
+     * and set the `dice` state to that new array (thus re-rendering
+     * the array to the page)
      */
 
     function allNewDice() {
@@ -22,8 +20,9 @@ export function GameContainer({styles}) {
     return (
         <main className={`${styles.displayFlexCenter} ${styles.gameElement}`}>
             <div className={styles.diceContainer}>
-                {diceArray.map((value, index) => <Die key={`die-${index + 1}`} value={value} styles={styles} />)}
+                {dice.map((value, index) => <Die key={`die-${index + 1}`} value={value} styles={styles} />)}
             </div>
+            <button onClick={() => setDice(allNewDice())} className={styles.reRollButton}>Roll</button>
         </main>
     )
 }

@@ -18,6 +18,7 @@
     width: 90vh;
 
     border-radius: 10px;
+    flex-direction: column;
 }
 
 .diceContainer {
@@ -40,4 +41,16 @@
 
     box-shadow: 0px 2px 2px #00000015;
     cursor: pointer;
+}
+
+.reRollButton {
+    margin-top: 50px;
+    height: 9vh;
+    width: 18vh;
+
+    font-size: 2.5rem;
+
+    background-color: #5035FF;
+    color: #FFFFFF;
+    border-radius: 10px;
 }
