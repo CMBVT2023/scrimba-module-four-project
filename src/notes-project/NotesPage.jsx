@@ -39,9 +39,19 @@ export function NotesPage() {
         if (!currentNoteId) setCurrentNoteId(notes[0]?.id)
     }, [notes, currentNoteId])
 
+    /**
+     * Challenge:
+     * 1. Add createdAt and updatedAt properties to the notes
+     *    When a note is first created, set the `createdAt` and `updatedAt`
+     *    properties to `Date.now()`. Whenever a note is modified, set the
+     *    `updatedAt` property to `Date.now()`.
+     */
+
     async function createNewNote() {
         const newNote = {
-            body: "# Type your markdown note's title here"
+            body: "# Type your markdown note's title here",
+            createdAt: Date.now(),
+            updatedAt: Date.now()
         }
 
         // This will add the new note to the notesCollection in the firestore database, and this requires passing in the variable retaining the collection and the new object you wish to add.
@@ -57,7 +67,8 @@ export function NotesPage() {
         // Similar to deleting, you need to have a reference to the document you are attempting to edit, and then you pass in the changes you want to make as the second argument
         // in this case, we just construct a new object with the body property set to the text passed in to the function.
         await setDoc(docRef, {
-            body: text
+            body: text,
+            updatedAt: Date.now()
         }, {merge: true})
     }
 
