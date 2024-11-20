@@ -15,21 +15,6 @@ export function NotesPage() {
 
     const [ tempNoteText, setTempNoteText ] = useState("");
 
-    /**
-     * Challenge:
-        * 1. Set up a new state variable called `tempNoteText`. Initialize 
-        *    it as an empty string
-        * 2. Change the Editor so that it uses `tempNoteText` and 
-        *    `setTempNoteText` for displaying and changing the text instead
-        *    of dealing directly with the `currentNote` data.
-     * 3. Create a useEffect that, if there's a `currentNote`, sets
-     *    the `tempNoteText` to `currentNote.body`. (This copies the
-     *    current note's text into the `tempNoteText` field so whenever 
-     *    the user changes the currentNote, the editor can display the 
-     *    correct text.
-     * 4. TBA
-     */
-
     const currentNote = notes.find(note => note.id === currentNoteId) || notes[0]
 
     // Shallow copies the array of notes since the .sort() method mutates the array, so without shallow copying,
@@ -65,6 +50,34 @@ export function NotesPage() {
             setTempNoteText(currentNote.body)
         }
     }, [currentNote])
+
+    /**
+     * Create an effect that runs any time the tempNoteText changes
+     * Delay the sending of the request to Firebase
+     *  uses setTimeout
+     * use clearTimeout to cancel the timeout
+     */
+
+    useEffect(() => {
+        // This will now trigger 500 milliseconds after the user stops typing in their notes,
+        // if the user does type against before the 500 milliseconds, the timer resets.
+        const timeoutId = setTimeout(() => {
+            updateNote(tempNoteText);
+        }, 500)
+
+        return() => clearTimeout(timeoutId);
+
+        //! My first attempt at creating the debounce update
+        /* let debounceUpdate = setTimeout(() => {
+            updateNote(tempNoteText);
+            console.log('Update.')
+        }, 500)
+        
+        return () => {
+            console.log('Debounce activated.')
+            clearTimeout(debounceUpdate)
+        } */
+    }, [tempNoteText, updateNote])
 
     async function createNewNote() {
         const newNote = {
