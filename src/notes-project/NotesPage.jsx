@@ -59,6 +59,17 @@ export function NotesPage() {
      */
 
     useEffect(() => {
+        async function updateNote(text) {
+            const docRef = doc(db, "notes", currentNoteId)
+
+            // Similar to deleting, you need to have a reference to the document you are attempting to edit, and then you pass in the changes you want to make as the second argument
+            // in this case, we just construct a new object with the body property set to the text passed in to the function.
+            await setDoc(docRef, {
+                body: text,
+                updatedAt: Date.now()
+            }, {merge: true})
+        }
+
         // This will now trigger 500 milliseconds after the user stops typing in their notes,
         // if the user does type against before the 500 milliseconds, the timer resets.
         const timeoutId = setTimeout(() => {
@@ -77,7 +88,7 @@ export function NotesPage() {
             console.log('Debounce activated.')
             clearTimeout(debounceUpdate)
         } */
-    }, [tempNoteText, updateNote])
+    }, [tempNoteText, currentNoteId])
 
     async function createNewNote() {
         const newNote = {
@@ -93,16 +104,7 @@ export function NotesPage() {
         setCurrentNoteId(newNoteRef.id)
     }
     
-    async function updateNote(text) {
-        const docRef = doc(db, "notes", currentNoteId)
 
-        // Similar to deleting, you need to have a reference to the document you are attempting to edit, and then you pass in the changes you want to make as the second argument
-        // in this case, we just construct a new object with the body property set to the text passed in to the function.
-        await setDoc(docRef, {
-            body: text,
-            updatedAt: Date.now()
-        }, {merge: true})
-    }
 
     async function deleteNote(noteId) {
         // First a reference to the document is needed before deleting the note.
