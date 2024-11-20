@@ -15,6 +15,10 @@ export function NotesPage() {
 
     const currentNote = notes.find(note => note.id === currentNoteId) || notes[0]
 
+    const sortedNotes = [...notes].sort((a, b) => b.updatedAt - a.updatedAt)
+
+    console.log(sortedNotes)
+
     useEffect(() => {
         // This creates a websocket listener within our app, so we need to provide a way for the component to close this if the component unmounts.
         const unsubscribe = onSnapshot(notesCollection, (snapshot) => {
@@ -41,10 +45,10 @@ export function NotesPage() {
 
     /**
      * Challenge:
-     * 1. Add createdAt and updatedAt properties to the notes
-     *    When a note is first created, set the `createdAt` and `updatedAt`
-     *    properties to `Date.now()`. Whenever a note is modified, set the
-     *    `updatedAt` property to `Date.now()`.
+     *    2. Create a new `sortedNotes` array (doesn't need to be saved 
+     *    in state) that orders the items in the array from 
+     *    most-recently-updated to least-recently-updated.
+     *    This may require a quick Google search.
      */
 
     async function createNewNote() {
@@ -95,7 +99,7 @@ export function NotesPage() {
                 className={styles.split}
             >
                 <Sidebar
-                    notes={notes}
+                    notes={sortedNotes}
                     currentNote={currentNote}
                     setCurrentNoteId={setCurrentNoteId}
                     newNote={createNewNote}
