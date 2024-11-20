@@ -3,9 +3,9 @@ import { Editor } from "./components/Editor";
 import { Sidebar } from "./components/Sidebar";
 
 import Split from "react-split"
-import { onSnapshot, addDoc } from "firebase/firestore";
+import { onSnapshot, addDoc, doc, deleteDoc } from "firebase/firestore";
 
-import { notesCollection } from "./firebase";
+import { notesCollection, db } from "./firebase";
 
 import styles from './NotesStyles.module.css'
 
@@ -98,10 +98,16 @@ export function NotesPage() {
         })) */
     }
 
-    function deleteNote(event, noteId) {
-        event.stopPropagation();
+    async function deleteNote(noteId) {
+        // First a reference to the document is needed before deleting the note.
+        // By calling the doc method and passing three arguments,
+        // One is the variable pointing to the database
+        // the second is the string specifying the path of the collection.
+        // and finally the id of the note we want to delete.
+        const docRef = doc(db, "notes", noteId)
 
-        setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
+        //* From here the deleteDoc method is called and the docRef is passed in as an argument.
+        await deleteDoc(docRef);
     }
     
     return (

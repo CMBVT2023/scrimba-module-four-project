@@ -14,7 +14,7 @@ export function Sidebar(props) {
                 <h4 className={styles.textSnippet}>{note.body.split('\n')[0]}</h4>
                 <button
                     className={styles.deleteButton}
-                    onClick={(e) => props.deleteNote(e, note.id)}
+                    onClick={(e) => props.deleteNote(note.id)}
                 >
                     <i className={`${styles.ggTrash} ${styles.trashIcon}`}></i>
                 </button>
