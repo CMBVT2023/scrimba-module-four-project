@@ -58,7 +58,7 @@ export function NotesPage() {
         // in this case, we just construct a new object with the body property set to the text passed in to the function.
         await setDoc(docRef, {
             body: text
-        })
+        }, {merge: true})
     }
 
     async function deleteNote(noteId) {
