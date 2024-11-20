@@ -18,7 +18,8 @@ export function Editor({currentNote, updateNote}) {
     return (
         <section className={`${styles.pane} ${styles.editor}`}>
             <ReactMde
-                value={currentNote?.body}
+                // Now that the current note is a temporary string, it does not need to access a body property on the current not object.
+                value={currentNote}
                 onChange={updateNote}
                 selectedTab={selectedTab}
                 onTabChange={setSelectedTab}
