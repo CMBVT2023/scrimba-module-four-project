@@ -53,4 +53,14 @@
     background-color: #5035FF;
     color: #FFFFFF;
     border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.reRollButton:focus { 
+    outline: none;
+}
+
+.reRollButton:active {
+    box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
