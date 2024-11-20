@@ -1,17 +1,19 @@
+import { useState } from "react";
 import { Die } from "./Die";
 
 export function GameContainer({styles}) {
-
+    const [ diceArray, setDiceArray ] = useState(allNewDice())
     /**
      * Challenge:
      * 
-     * Write a function (allNewDice) that returns an array 
-     * of 10 random numbers between 1-6 inclusive.
+     * Create state to hold our array of numbers. (Initialize
+     * the state by calling our `allNewDice` function so it 
+     * loads all new dice as soon as the app loads)
      * 
-     * Log the array of numbers to the console for now
+     * Map over the state numbers array to generate our array
+     * of Die elements and render those in place of our
+     * manually-written 10 Die elements.
      */
-
-    let diceArray = allNewDice()
 
     function allNewDice() {
         return Array(10).fill(1).map(value => Math.ceil(Math.random() * 6));
