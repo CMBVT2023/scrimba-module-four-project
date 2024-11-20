@@ -12,6 +12,9 @@ export function Home() {
                 <li>
                     <Link to={'/notesPage'}>Notes App</Link>
                 </li>
+                <li>
+                    <Link to={'/tenziesPage'}>Tenzies Game</Link>
+                </li>
             </ul>
         </div>
     )
