@@ -22,7 +22,8 @@
 
 .diceContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    /* Sets two rows that are automatically determined and then the columns are each 1 fractional unit, and this is repeated 5 times using the repeat function*/
+    grid-template: auto auto / repeat(5, 1fr);
 
     gap: 50px;
 }
@@ -37,5 +38,6 @@
 
     border-radius: 5px;
 
-    box-shadow: 0px 5px 2px 0px  #00000015;
+    box-shadow: 0px 2px 2px #00000015;
+    cursor: pointer;
 }
