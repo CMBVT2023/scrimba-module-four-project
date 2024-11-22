@@ -1,17 +1,19 @@
 import { useState, useId, useEffect } from "react";
 import { Die } from "./Die";
+import Confetti from 'react-confetti'
 
 export function GameContainer({styles}) {
     const [ dice, setDice ] = useState(allNewDice());
     const [ tenzies, setTenzies ] = useState(false);
 
     /**
-     * Challenge: Check the dice array for these winning conditions:
-     * 1. All dice are held, and
-     * 2. all dice have the same value
+     * Challenge: Tie off loose ends!
+     * 1. If tenzies is true, Change the button text to "New Game"
+     * 2. If tenzies is true, use the "react-confetti" package to
+     *    render the <Confetti /> component 🎉
      * 
-     * If both conditions are true, set `tenzies` to true and log
-     * "You won!" to the console
+     *    Hint: don't worry about the `height` and `width` props
+     *    it mentions in the documentation.
      */
     useEffect(() => {
         //! Video's method for checking for the win conditions
@@ -83,15 +85,21 @@ export function GameContainer({styles}) {
         })
     }
 
+    function setAllDice() {
+        setDice(new Array(10).fill(1).map(_ => ({value: 1, isHeld: true, id: `die-${Math.random()}`})))
+    }
+
     return (
         <main className={`${styles.displayFlexCenter} ${styles.gameElement}`}>
+            {tenzies && <Confetti />}
             <h1 className={styles.gameTitle}>Tenzies</h1>
             <p className={styles.instructionsParagraph}>Roll until all  dice are the same. Click each die to freeze it at its current value between rolls.</p>
             <div className={styles.diceContainer}>
                 {/* Another way of passing the hold function with the id, is to pass an arrow function that will call hold dice with the dice's id. */}
                 {dice.map((die) => <Die key={die.id} dieObj={die} styles={styles} hold={holdDice} />)}
             </div>
-            <button onClick={() => rollDice()} className={styles.reRollButton}>Roll</button>
+            <button onClick={() => rollDice()} className={styles.reRollButton}>{tenzies ? 'New Game' : 'Roll'}</button>
+            {/* <button onClick={setAllDice}>click</button> */}
         </main>
     )
 }
