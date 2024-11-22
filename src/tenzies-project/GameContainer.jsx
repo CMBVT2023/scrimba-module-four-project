@@ -50,6 +50,8 @@ export function GameContainer({styles}) {
 
     return (
         <main className={`${styles.displayFlexCenter} ${styles.gameElement}`}>
+            <h1 className={styles.gameTitle}>Tenzies</h1>
+            <p className={styles.instructionsParagraph}>Roll until all  dice are the same. Click each die to freeze it at its current value between rolls.</p>
             <div className={styles.diceContainer}>
                 {/* Another way of passing the hold function with the id, is to pass an arrow function that will call hold dice with the dice's id. */}
                 {dice.map((die) => <Die key={die.id} dieObj={die} styles={styles} hold={holdDice} />)}
