@@ -6,15 +6,27 @@ export function GameContainer({styles}) {
     const [ tenzies, setTenzies ] = useState(false);
 
     /**
-     * Challenge:
-     * 1. Add new state called `tenzies`, default to false. It
-     *    represents whether the user has won the game yet or not.
-     * 2. Add an effect that runs every time the `dice` state array 
-     *    changes. For now, just console.log("Dice state changed").
+     * Challenge: Check the dice array for these winning conditions:
+     * 1. All dice are held, and
+     * 2. all dice have the same value
+     * 
+     * If both conditions are true, set `tenzies` to true and log
+     * "You won!" to the console
      */
-
     useEffect(() => {
-        console.log('Dice state changed.')
+        if (dice) {
+            let value = dice[0].value
+            
+            for (const die of dice) {
+                if (!die.isHeld && value != die.value) {
+                    return;
+                }
+            }
+
+            setTenzies(true);
+            console.log("You won")
+        }
+
     }, [dice])
 
     function generateNewDie() {
