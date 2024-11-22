@@ -1,27 +1,21 @@
 import { useState, useId, useEffect } from "react";
+import { DisplayTimer } from "./DisplayTimer";
 import { Die } from "./Die";
 import Confetti from 'react-confetti'
 
 export function GameContainer({styles}) {
-    const [ dice, setDice ] = useState(allNewDice());
+    const [ startTime, setStartTime ] = useState(0);
+    const [ numberOfRolls, setNumberOfRolls ] = useState(0);
     const [ tenzies, setTenzies ] = useState(false);
+    const [ dice, setDice ] = useState(allNewDice());
+    const [ newGame, setNewGame ] = useState(true);
 
-    /**
-     * Challenge: Tie off loose ends!
-     * 1. If tenzies is true, Change the button text to "New Game"
-     * 2. If tenzies is true, use the "react-confetti" package to
-     *    render the <Confetti /> component 🎉
-     * 
-     *    Hint: don't worry about the `height` and `width` props
-     *    it mentions in the documentation.
-     */
     useEffect(() => {
         //! Video's method for checking for the win conditions
         const allHeld = dice.every(die => die.isHeld);
         const firstValue = dice[0].value;
         const allSameValue = dice.every(die => die.value === firstValue);
         if (allHeld & allSameValue) {
-            console.log("You won!")
             setTenzies(true)
         }
 
@@ -41,9 +35,17 @@ export function GameContainer({styles}) {
 
     }, [dice])
 
+    function resetGame() {
+        setNumberOfRolls(1);
+        setTenzies(false);
+        setStartTime(Date.now());
+        setDice(allNewDice());
+    }
+
     function generateNewDie() {
+        let number = Math.ceil(Math.random() * 6);
         return {
-            value: Math.ceil(Math.random() * 6),
+            value: number,
             isHeld: false,
             id: `die-${Math.random()}`
         }
@@ -63,13 +65,18 @@ export function GameContainer({styles}) {
 
     function rollDice() {
         if (tenzies) {
-            setDice(allNewDice())
-            setTenzies(false)
-        } else {
-            setDice(prevDiceArray => prevDiceArray.map(die => {
-                return die.isHeld ? die : generateNewDie();
-            }))
+            resetGame()
+            return
+        } else if (numberOfRolls == 0) {
+            setStartTime(Date.now());
+            setNewGame(false);
         }
+        
+        
+        setNumberOfRolls(prev => prev + 1)
+        setDice(prevDiceArray => prevDiceArray.map(die => {
+            return die.isHeld ? die : generateNewDie();
+        }))
     }
 
     function holdDice(diceId) {
@@ -99,12 +106,17 @@ export function GameContainer({styles}) {
             {tenzies && <Confetti />}
             <h1 className={styles.gameTitle}>Tenzies</h1>
             <p className={styles.instructionsParagraph}>Roll until all  dice are the same. Click each die to freeze it at its current value between rolls.</p>
+
+            <DisplayTimer start={startTime} hasUserWon={tenzies} />
+
+            <p>{tenzies ? `You Won In ${numberOfRolls} Rolls!` : `Current Role: ${numberOfRolls}`}</p>
+
             <div className={styles.diceContainer}>
                 {/* Another way of passing the hold function with the id, is to pass an arrow function that will call hold dice with the dice's id. */}
-                {dice.map((die) => <Die key={die.id} dieObj={die} styles={styles} hold={holdDice} />)}
+                {dice.map((die) => <Die key={die.id} dieObj={die} styles={styles} hold={holdDice} isDisabled={newGame} />)}
             </div>
             <button onClick={rollDice} className={styles.reRollButton}>{tenzies ? 'New Game' : 'Roll'}</button>
-            <button onClick={setAllDice}>click</button>
+            {/* <button onClick={setAllDice}>click</button> */}
         </main>
     )
 }
