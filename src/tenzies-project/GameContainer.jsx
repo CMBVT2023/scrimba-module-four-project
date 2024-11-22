@@ -5,18 +5,15 @@ export function GameContainer({styles}) {
     const [ dice, setDice ] = useState(allNewDice())
 
     /**
-     * Challenge: Create a function `holdDice` that takes
-     * `id` as a parameter. For now, just have the function
-     * console.log(id).
+     * Challenge: Update the `rollDice` function to not just roll
+     * all new dice, but instead to look through the existing dice
+     * to NOT role any that are being `held`.
      * 
-     * Then, figure out how to pass that function down to each
-     * instance of the Die component so when each one is clicked,
-     * it logs its own unique ID property. (Hint: there's more
-     * than one way to make that work, so just choose whichever
-     * you want)
-     * 
+     * Hint: this will look relatively similar to the `holdDice`
+     * function below. When creating new dice, remember to use
+     * `id: nanoid()` so any new dice have an `id` as well.
      */
-    
+        
     function allNewDice() {
         //! My way of originally filling the array
         // const newDice = new Array(10).fill(1).map(value => Math.ceil(Math.random() * 6));
@@ -31,6 +28,12 @@ export function GameContainer({styles}) {
         }
 
         return newDice
+    }
+
+    function rollDice() {
+        setDice(prevDiceArray => prevDiceArray.map(die => {
+            return die.isHeld ? die : {...die, value: Math.ceil(Math.random() * 6)}
+        }))
     }
 
     function holdDice(diceId) {
@@ -57,7 +60,7 @@ export function GameContainer({styles}) {
                 {/* Another way of passing the hold function with the id, is to pass an arrow function that will call hold dice with the dice's id. */}
                 {dice.map((die) => <Die key={die.id} dieObj={die} styles={styles} hold={holdDice} />)}
             </div>
-            <button onClick={() => setDice(allNewDice())} className={styles.reRollButton}>Roll</button>
+            <button onClick={() => rollDice()} className={styles.reRollButton}>Roll</button>
         </main>
     )
 }
