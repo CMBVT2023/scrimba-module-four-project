@@ -1,8 +1,21 @@
-import { useState, useId } from "react";
+import { useState, useId, useEffect } from "react";
 import { Die } from "./Die";
 
 export function GameContainer({styles}) {
-    const [ dice, setDice ] = useState(allNewDice())
+    const [ dice, setDice ] = useState(allNewDice());
+    const [ tenzies, setTenzies ] = useState(false);
+
+    /**
+     * Challenge:
+     * 1. Add new state called `tenzies`, default to false. It
+     *    represents whether the user has won the game yet or not.
+     * 2. Add an effect that runs every time the `dice` state array 
+     *    changes. For now, just console.log("Dice state changed").
+     */
+
+    useEffect(() => {
+        console.log('Dice state changed.')
+    }, [dice])
 
     function generateNewDie() {
         return {
