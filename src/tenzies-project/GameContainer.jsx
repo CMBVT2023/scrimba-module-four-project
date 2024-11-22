@@ -34,12 +34,27 @@ export function GameContainer({styles}) {
     }
 
     function holdDice(diceId) {
-        console.log(diceId)
+        setDice(prevDiceArray => {
+            return prevDiceArray.map((die) => {
+                //* Using ternary operator.
+                return die.id == diceId ? {...die, isHeld: !die.isHeld} : die;
+                //* Using if else statements
+                /* if (die.id == diceId) {
+                    return {
+                        ...die,
+                        isHeld: !die.isHeld,
+                    }
+                } else {
+                    return die;
+                } */
+            })
+        })
     }
 
     return (
         <main className={`${styles.displayFlexCenter} ${styles.gameElement}`}>
             <div className={styles.diceContainer}>
+                {/* Another way of passing the hold function with the id, is to pass an arrow function that will call hold dice with the dice's id. */}
                 {dice.map((die) => <Die key={die.id} dieObj={die} styles={styles} hold={holdDice} />)}
             </div>
             <button onClick={() => setDice(allNewDice())} className={styles.reRollButton}>Roll</button>
