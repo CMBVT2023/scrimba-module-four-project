@@ -14,7 +14,17 @@ export function GameContainer({styles}) {
      * "You won!" to the console
      */
     useEffect(() => {
-        if (dice) {
+        //! Video's method for checking for the win conditions
+        const allHeld = dice.every(die => die.isHeld);
+        const firstValue = dice[0].value;
+        const allSameValue = dice.every(die => die.value === firstValue);
+        if (allHeld & allSameValue) {
+            console.log("You won!")
+            setTenzies(true)
+        }
+
+        //! My first attempt at checking for the win conditions 
+        /* if (dice) {
             let value = dice[0].value
             
             for (const die of dice) {
@@ -25,7 +35,7 @@ export function GameContainer({styles}) {
 
             setTenzies(true);
             console.log("You won")
-        }
+        } */
 
     }, [dice])
 
