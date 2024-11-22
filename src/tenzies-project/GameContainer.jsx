@@ -4,15 +4,13 @@ import { Die } from "./Die";
 export function GameContainer({styles}) {
     const [ dice, setDice ] = useState(allNewDice())
 
-    /**
-     * Challenge: Update the `rollDice` function to not just roll
-     * all new dice, but instead to look through the existing dice
-     * to NOT role any that are being `held`.
-     * 
-     * Hint: this will look relatively similar to the `holdDice`
-     * function below. When creating new dice, remember to use
-     * `id: nanoid()` so any new dice have an `id` as well.
-     */
+    function generateNewDie() {
+        return {
+            value: Math.ceil(Math.random() * 6),
+            isHeld: false,
+            id: `die-${Math.random()}`
+        }
+    }
         
     function allNewDice() {
         //! My way of originally filling the array
@@ -20,11 +18,7 @@ export function GameContainer({styles}) {
 
         const newDice = [];
         for (let i = 0; i < 10; i++) {
-            newDice.push({
-                value: Math.ceil(Math.random() * 6),
-                isHeld: false,
-                id: `die-${i + 1}`
-            })
+            newDice.push(generateNewDie())
         }
 
         return newDice
@@ -32,7 +26,7 @@ export function GameContainer({styles}) {
 
     function rollDice() {
         setDice(prevDiceArray => prevDiceArray.map(die => {
-            return die.isHeld ? die : {...die, value: Math.ceil(Math.random() * 6)}
+            return die.isHeld ? die : generateNewDie();
         }))
     }
 
