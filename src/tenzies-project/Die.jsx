@@ -1,4 +1,5 @@
-export function Die({styles, value, isHeld}) {
+export function Die({styles, dieObj, hold}) {
+    const { value, isHeld, id} = dieObj;
 
     const holdingStyle = {
         backgroundColor: `${isHeld ? '#59E391' : '#FFFFFF'}`
@@ -6,7 +7,7 @@ export function Die({styles, value, isHeld}) {
 
     return (
         <div className={`${styles.displayFlexCenter} ${styles.dieElement}`} 
-        style={holdingStyle}>
+        style={holdingStyle} onClick={() => hold(id)}>
             <p>{value}</p>
         </div>
     )
