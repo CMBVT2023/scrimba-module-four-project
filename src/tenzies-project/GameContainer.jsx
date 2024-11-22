@@ -62,9 +62,14 @@ export function GameContainer({styles}) {
     }
 
     function rollDice() {
-        setDice(prevDiceArray => prevDiceArray.map(die => {
-            return die.isHeld ? die : generateNewDie();
-        }))
+        if (tenzies) {
+            setDice(allNewDice())
+            setTenzies(false)
+        } else {
+            setDice(prevDiceArray => prevDiceArray.map(die => {
+                return die.isHeld ? die : generateNewDie();
+            }))
+        }
     }
 
     function holdDice(diceId) {
@@ -98,8 +103,8 @@ export function GameContainer({styles}) {
                 {/* Another way of passing the hold function with the id, is to pass an arrow function that will call hold dice with the dice's id. */}
                 {dice.map((die) => <Die key={die.id} dieObj={die} styles={styles} hold={holdDice} />)}
             </div>
-            <button onClick={() => rollDice()} className={styles.reRollButton}>{tenzies ? 'New Game' : 'Roll'}</button>
-            {/* <button onClick={setAllDice}>click</button> */}
+            <button onClick={rollDice} className={styles.reRollButton}>{tenzies ? 'New Game' : 'Roll'}</button>
+            <button onClick={setAllDice}>click</button>
         </main>
     )
 }
